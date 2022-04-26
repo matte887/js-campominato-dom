@@ -108,6 +108,14 @@ document.getElementById("play").addEventListener("click", function() {
              * La funzione non restituisce nulla.
              */
             function endGame(clickedSafeCells, response) {
+                // Creo un array contenente tutti gli elementi HTML con classe grid-element...
+                const gridElement = document.getElementsByClassName("grid-element");
+                // ...per ciascuno blocco la possibilità di cliccare.
+                for (let i = 0; i < gridElement.length; i++) {
+                    gridElement[i].style.pointerEvents = "none";
+                }
+
+
                 const result = document.getElementById("result");
                 let resultMessage;
                 if (response === "win") {
