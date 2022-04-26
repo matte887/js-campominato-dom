@@ -9,9 +9,9 @@
 
 */
 
-
+// Aggiungo un eventListener al tasto play: la griglia compare.
 document.getElementById("play").addEventListener("click", function() {
-    // Richiamo il selettore della scelta livello...
+    // Richiamo il valore del selettore della scelta livello...
     const difficultySelector = document.getElementById("level").value;
     
     let difficulty;
@@ -37,7 +37,6 @@ document.getElementById("play").addEventListener("click", function() {
     const instruction = document.querySelector("h2");
     instruction.classList.add("hidden");
     
-    
     // Creo un ciclo che richiama la funzione che genera i div un numero di volte corrispondente al livello scelto.
     for (let i = 1; i <= difficulty; i++) {
         // Richiamo la funzione che genera gli elementi div
@@ -46,7 +45,7 @@ document.getElementById("play").addEventListener("click", function() {
         // Appendo il div al contenitore HTML.
         gameContainer.append(gridElement);
 
-        // Aggiungo l'opportuna classe al gridElement
+        // Aggiungo l'opportuna classe al gridElement per settare la sua dimensione.
         if (difficultySelector === "easy") {
             gridElement.classList.add("easy");
         } else if (difficultySelector === "medium") {
@@ -84,8 +83,8 @@ function generateGridElement(digitToPush) {
 };
 
 /**
- * Descrizione: la funzione colora l'elemento
- * La funziona non ritorna niente
+ * Descrizione: la funzione colora l'elemento.
+ * La funziona non ritorna niente.
  */
 function handleCellClick() {
     this.classList.add("clicked");
