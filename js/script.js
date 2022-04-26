@@ -78,7 +78,7 @@ document.getElementById("play").addEventListener("click", function() {
             if (bombsArray.includes(thisCell)) {
                 // ...l'utente perde.
                 this.classList.add("bomb");
-                document.getElementById("lose").classList.remove("hidden");
+                endGame(clickedSafeCells.length, "lose");
             // Altrimenti
             } else {
                 this.classList.add("clicked");
@@ -89,10 +89,31 @@ document.getElementById("play").addEventListener("click", function() {
                 clickedSafeCells.push(thisCell);
                 console.log("Celle sicure cliccate: ", clickedSafeCells);
 
+                // Faccio comparire il risultato
                 if (clickedSafeCells.length >= safeCellsNumber) {
-                    document.getElementById("win").classList.remove("hidden");
+                    endGame(clickedSafeCells.length, "win");
                 }
             }; 
+
+            
+            /**
+             * Descrizione: la funzione stampa il messaggio di fine gioco.
+             * @param {number} clickedSafeCells
+             * @param {string} response -> "win" se il giocatore ha vinto, sennò "lose".
+             * La funzione non restituisce nulla.
+             */
+            function endGame(clickedSafeCells, response) {
+                const result = document.getElementById("result");
+                let resultMessage;
+                if (response === "win") {
+                    resultMessage = `Hai vinto!`;
+                } else if (response === "lose") {
+                    resultMessage = `Hai perso! Hai indovinato solo ${clickedSafeCells} celle!`;
+                }
+                result.innerHTML = resultMessage;
+                result.classList.remove("hidden");
+            }
+
         };
         
     };
@@ -144,12 +165,3 @@ function getRndInteger(min, max) {
 }
 
 
-
-/**
- * Descrizione: la funzione porrà fine al gioco facendo comparire il responso ed impedendo ulteriori click sulla griglia.
- * @param {number} availableSafeCells -> numero di celle senza bomba da cliccare per vincere.
- * La funzione non ritorna niente.
- */
-function endGame(availableSafeCells) {
-
-}
