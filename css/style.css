@@ -71,7 +71,11 @@ main {
 }
 
 .grid-element.clicked {
-    background-color: #f86202;
+    background-color: lightgreen;
+}
+
+.bomb {
+    background-color: red;
 }
 
 .grid-element.clicked span {

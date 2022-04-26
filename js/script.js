@@ -60,6 +60,23 @@ document.getElementById("play").addEventListener("click", function() {
         
         // Aggiungo un'event listener
         gridElement.addEventListener("click", handleCellClick);
+        
+
+        /**
+         * Descrizione: la funzione colora l'elemento di un colore diverso a seconda che sia o no nell'array
+         * La funziona non ritorna niente.
+         */
+        function handleCellClick() {
+        // Prelevo il numero della cella cliccata
+        const thisCell = parseInt(this.querySelector("span").textContent);
+        if (bombsArray.includes(thisCell)) {
+            gridElement.classList.add("bomb");
+        } else {
+            gridElement.classList.add("clicked");
+        }
+        };
+
+
     };
 });
 
@@ -68,7 +85,7 @@ document.getElementById("play").addEventListener("click", function() {
 // FUNCTION
 /**
  * Descrizione: la funzione crea un div con dentro il numero i.
- * @param {Number} digitToPush-> è il numero di celle che voglio creare.
+ * @param {Number} digitToPush -> è il numero di celle che voglio creare.
  * @returns {any} -> restituisce un div che rappresenta l'elemento della griglia.
  */
 function generateGridElement(digitToPush) {
@@ -84,14 +101,6 @@ function generateGridElement(digitToPush) {
     // Restituisco il risultato
     return newElement;
 };
-
-/**
- * Descrizione: la funzione colora l'elemento.
- * La funziona non ritorna niente.
- */
-function handleCellClick() {
-    this.classList.add("clicked");
-}
 
 /**
  * Descrizione: la funzione genera numberOfDigits numeri tra 1 e upperLimit.
