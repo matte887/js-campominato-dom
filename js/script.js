@@ -37,7 +37,7 @@ document.getElementById("play").addEventListener("click", function() {
     const instruction = document.querySelector("h2");
     instruction.classList.add("hidden");
 
-    const nbrOfBombs = 0;
+    const nbrOfBombs = 16;
     const bombsArray = generateRndDigitInRange(nbrOfBombs, difficulty);
     console.log("Le bombe sono sotto: ", bombsArray);
 
@@ -87,7 +87,7 @@ document.getElementById("play").addEventListener("click", function() {
                 this.style.pointerEvents = "none";
                 // ...e pusho il numero in un altro array.
                 clickedSafeCells.push(thisCell);
-                console.log(clickedSafeCells);
+                console.log("Celle sicure cliccate: ", clickedSafeCells);
 
                 if (clickedSafeCells.length >= safeCellsNumber) {
                     document.getElementById("win").classList.remove("hidden");
