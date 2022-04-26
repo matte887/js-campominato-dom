@@ -36,6 +36,10 @@ document.getElementById("play").addEventListener("click", function() {
     // Aggiungo la classe hidden all'istruzione
     const instruction = document.querySelector("h2");
     instruction.classList.add("hidden");
+
+    const nbrOfBombs = 16;
+    const bombsArray = generateRndDigitInRange(nbrOfBombs, difficulty);
+    console.log(bombsArray);
     
     // Creo un ciclo che richiama la funzione che genera i div un numero di volte corrispondente al livello scelto.
     for (let i = 1; i <= difficulty; i++) {
@@ -104,7 +108,7 @@ function generateRndDigitInRange(numberOfDigits, upperLimit) {
         if (!rndDigits.includes(thisDigit)) {
             rndDigits.push(thisDigit);
         };
-    } while (rndDigits.length < upperLimit);
+    } while (rndDigits.length < numberOfDigits);
 
     return rndDigits;
 }
