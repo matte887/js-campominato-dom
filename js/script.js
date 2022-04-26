@@ -37,9 +37,14 @@ document.getElementById("play").addEventListener("click", function() {
     const instruction = document.querySelector("h2");
     instruction.classList.add("hidden");
 
-    const nbrOfBombs = 16;
+    const nbrOfBombs = 0;
     const bombsArray = generateRndDigitInRange(nbrOfBombs, difficulty);
-    console.log(bombsArray);
+    console.log("Le bombe sono sotto: ", bombsArray);
+
+    const safeCellsNumber = difficulty - nbrOfBombs;
+
+    const clickedSafeCells = [];
+
     
     // Creo un ciclo che richiama la funzione che genera i div un numero di volte corrispondente al livello scelto.
     for (let i = 1; i <= difficulty; i++) {
@@ -58,7 +63,7 @@ document.getElementById("play").addEventListener("click", function() {
             gridElement.classList.add("crazy");
         }
         
-        // Aggiungo un'event listener
+        // Aggiungo un event listener
         gridElement.addEventListener("click", handleCellClick);
         
 
@@ -67,22 +72,35 @@ document.getElementById("play").addEventListener("click", function() {
          * La funziona non ritorna niente.
          */
         function handleCellClick() {
-        // Prelevo il numero della cella cliccata
-        const thisCell = parseInt(this.querySelector("span").textContent);
-        if (bombsArray.includes(thisCell)) {
-            gridElement.classList.add("bomb");
-        } else {
-            gridElement.classList.add("clicked");
-        }
+            // Prelevo il numero della cella cliccata
+            const thisCell = parseInt(this.querySelector("span").textContent);
+            // Se questo numero è presente nell'array delle bombe...
+            if (bombsArray.includes(thisCell)) {
+                // ...l'utente perde.
+                this.classList.add("bomb");
+                document.getElementById("lose").classList.remove("hidden");
+            // Altrimenti
+            } else {
+                this.classList.add("clicked");
+                
+                // annullo eventuali ulteriori click su this...
+                this.style.pointerEvents = "none";
+                // ...e pusho il numero in un altro array.
+                clickedSafeCells.push(thisCell);
+                console.log(clickedSafeCells);
+
+                if (clickedSafeCells.length >= safeCellsNumber) {
+                    document.getElementById("win").classList.remove("hidden");
+                }
+            }; 
         };
-
-
+        
     };
 });
 
 
 
-// FUNCTION
+// FUNCTIONS
 /**
  * Descrizione: la funzione crea un div con dentro il numero i.
  * @param {Number} digitToPush -> è il numero di celle che voglio creare.
@@ -100,28 +118,38 @@ function generateGridElement(digitToPush) {
 
     // Restituisco il risultato
     return newElement;
-};
+}
 
 /**
  * Descrizione: la funzione genera numberOfDigits numeri tra 1 e upperLimit.
- * @param {number} numberOfDigits
- * @param {number} upperLimit
+ * @param {number} numberOfDigits -> numero di digit che vogliamo generare.
+ * @param {number} upperLimit -> limite superiore entro i quali i numeri generati devono stare.
  * @returns {any} array con i numeri generati.
  */
 function generateRndDigitInRange(numberOfDigits, upperLimit) {
     let rndDigits = [];
 
-    do {
+    while (rndDigits.length < numberOfDigits) {
         const thisDigit = getRndInteger(1, upperLimit);
-        console.log(thisDigit);
         if (!rndDigits.includes(thisDigit)) {
             rndDigits.push(thisDigit);
         };
-    } while (rndDigits.length < numberOfDigits);
+    };
 
     return rndDigits;
 }
 
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+
+
+/**
+ * Descrizione: la funzione porrà fine al gioco facendo comparire il responso ed impedendo ulteriori click sulla griglia.
+ * @param {number} availableSafeCells -> numero di celle senza bomba da cliccare per vincere.
+ * La funzione non ritorna niente.
+ */
+function endGame(availableSafeCells) {
+
 }
