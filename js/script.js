@@ -77,8 +77,7 @@ function generateGridElement(digitToPush) {
     // Assegno la classe grid-element al div.
     newElement.classList.add("grid-element");    
 
-    console.log(newElement);
-
+    // Restituisco il risultato
     return newElement;
 };
 
@@ -88,4 +87,28 @@ function generateGridElement(digitToPush) {
  */
 function handleCellClick() {
     this.classList.add("clicked");
+}
+
+/**
+ * Descrizione: la funzione genera numberOfDigits numeri tra 1 e upperLimit.
+ * @param {number} numberOfDigits
+ * @param {number} upperLimit
+ * @returns {any} array con i numeri generati.
+ */
+function generateRndDigitInRange(numberOfDigits, upperLimit) {
+    let rndDigits = [];
+
+    do {
+        const thisDigit = getRndInteger(1, upperLimit);
+        console.log(thisDigit);
+        if (!rndDigits.includes(thisDigit)) {
+            rndDigits.push(thisDigit);
+        };
+    } while (rndDigits.length < upperLimit);
+
+    return rndDigits;
+}
+
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
