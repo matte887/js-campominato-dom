@@ -1,0 +1,80 @@
+* {
+ padding: 0;
+ margin: 0;
+ box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+}
+
+header {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+h1 {
+    display: inline;
+}
+
+button {
+    padding: .2rem .4rem;
+}
+
+main {
+    height: calc(100vh - 100px);
+    width: 100%;
+    background-color: #a9cadd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-grid {
+    height: 500px;
+    width: 500px;
+    border: 1px solid white;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hidden {
+    display: none;
+}
+
+.grid-element {
+    /* height: calc(100% / 10);
+    width: calc(100% / 10); */
+    border: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.grid-element.easy{
+    height: calc(100% / 10);
+    width: calc(100% / 10);
+}
+
+.grid-element.medium{
+    height: calc(100% / 9);
+    width: calc(100% / 9);
+}
+
+.grid-element.crazy{
+    height: calc(100% / 7);
+    width: calc(100% / 7);
+}
+
+.grid-element.clicked {
+    background-color: #f86202;
+}
+
+.grid-element.clicked span {
+    display: block;
+}
