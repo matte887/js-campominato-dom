@@ -27,25 +27,30 @@ document.getElementById("play").addEventListener("click", function() {
 
     // Seleziono il contenitore HTML
     const gameContainer = document.querySelector(".game-grid");
+    // Tolgo la classe .hidden dalla griglia
+    gameContainer.classList.remove("hidden");
+    
     // Resetto il doppio click sul tasto play
     gameContainer.innerHTML = "";
 
-    // Tolgo la classe .hidden dalla griglia
-    gameContainer.classList.remove("hidden");
-                                  
+    // Seleziono l'elemento html che contiene il risultato e lo faccio sparire al click del play.
+    document.getElementById("result").innerHTML = "";
+    
     // Aggiungo la classe hidden all'istruzione
     const instruction = document.querySelector("h2");
     instruction.classList.add("hidden");
 
+    // Setto il numero di bombe
     const nbrOfBombs = 16;
+    // Richiamo la funzione che piazza le bombe.
     const bombsArray = generateRndDigitInRange(nbrOfBombs, difficulty);
     console.log("Le bombe sono sotto: ", bombsArray);
 
+    // Calcolo il numero di celle senza bomba per poter stabilire la vincita...
     const safeCellsNumber = difficulty - nbrOfBombs;
-
+    // ...a questo scopo servirà anche un array dove mettere le celle cliccate.
     const clickedSafeCells = [];
 
-    
     // Creo un ciclo che richiama la funzione che genera i div un numero di volte corrispondente al livello scelto.
     for (let i = 1; i <= difficulty; i++) {
         // Richiamo la funzione che genera gli elementi div
