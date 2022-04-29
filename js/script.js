@@ -30,7 +30,7 @@ document.getElementById("play").addEventListener("click", function() {
     // Tolgo la classe .hidden dalla griglia
     gameContainer.classList.remove("hidden");
     
-    // Resetto il doppio click sul tasto play
+    // Resetto il doppio click sul tasto play per fare in modo che non ne vengano create altre cliccando su play.
     gameContainer.innerHTML = "";
 
     // Seleziono l'elemento html che contiene il risultato e lo faccio sparire al click del play.
@@ -84,6 +84,15 @@ document.getElementById("play").addEventListener("click", function() {
                 // ...l'utente perde.
                 this.classList.add("bomb");
                 endGame(clickedSafeCells.length, "lose");
+
+                const allCells = document.querySelectorAll(".grid-element");
+                for (let i = 0; i < difficulty; i++) {
+                    numCells = parseInt(allCells[i].textContent);
+
+                    if (bombsArray.includes(numCells)) {
+                        allCells[i].classList.add("bomb");
+                    }
+                }
             // Altrimenti
             } else {
                 this.classList.add("clicked");
@@ -99,37 +108,35 @@ document.getElementById("play").addEventListener("click", function() {
                     endGame(clickedSafeCells.length, "win");
                 }
             }; 
-
-            
-            /**
-             * Descrizione: la funzione stampa il messaggio di fine gioco.
-             * @param {number} clickedSafeCells
-             * @param {string} response -> "win" se il giocatore ha vinto, sennò "lose".
-             * La funzione non restituisce nulla.
-             */
-            function endGame(clickedSafeCells, response) {
-                // Creo un array contenente tutti gli elementi HTML con classe grid-element...
-                const gridElement = document.getElementsByClassName("grid-element");
-                // ...per ciascuno blocco la possibilità di cliccare.
-                for (let i = 0; i < gridElement.length; i++) {
-                    gridElement[i].style.pointerEvents = "none";
-                }
-
-
-                const result = document.getElementById("result");
-                let resultMessage;
-                if (response === "win") {
-                    resultMessage = `Hai vinto!`;
-                } else if (response === "lose") {
-                    resultMessage = `Hai perso! Hai indovinato solo ${clickedSafeCells} celle!`;
-                }
-                result.innerHTML = resultMessage;
-                result.classList.remove("hidden");
-            }
-
-        };
-        
+        }  
     };
+
+    /**
+     * Descrizione: la funzione stampa il messaggio di fine gioco.
+     * @param {number} clickedSafeCells
+     * @param {string} response -> "win" se il giocatore ha vinto, sennò "lose".
+     * La funzione non restituisce nulla.
+     */
+    function endGame(clickedSafeCells, response) {
+        // Creo un array contenente tutti gli elementi HTML con classe grid-element...
+        const gridElement = document.getElementsByClassName("grid-element");
+        // ...per ciascuno blocco la possibilità di cliccare.
+        for (let i = 0; i < gridElement.length; i++) {
+            gridElement[i].style.pointerEvents = "none";
+        }
+        // Coloro di rosso tutte le celle con la bomba
+        
+        // Mostro il risultato in pagina
+        const result = document.getElementById("result");
+        let resultMessage;
+        if (response === "win") {
+            resultMessage = `Hai vinto!`;
+        } else if (response === "lose") {
+            resultMessage = `Hai perso! Hai indovinato solo ${clickedSafeCells} celle!`;
+        }
+        result.innerHTML = resultMessage;
+        result.classList.remove("hidden");
+    }        
 });
 
 
